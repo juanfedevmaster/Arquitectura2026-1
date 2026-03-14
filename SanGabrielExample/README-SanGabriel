@@ -1,0 +1,210 @@
+# San Gabriel Hospital – Authentication & Notifications Architecture
+
+## Descripción
+
+Este proyecto presenta una **arquitectura basada en microservicios y eventos** para gestionar el proceso de **autenticación de usuarios y generación de notificaciones** en el sistema del **Hospital San Gabriel**.
+
+La arquitectura permite desacoplar los componentes del sistema mediante el uso de **eventos y mensajería**, facilitando la escalabilidad, el mantenimiento y la evolución del sistema.
+
+El flujo principal inicia cuando un usuario intenta autenticarse en la plataforma. Si la autenticación es exitosa, se genera un evento que posteriormente es procesado por el sistema de notificaciones, el cual puede enviar mensajes en tiempo real al cliente o correos electrónicos.
+
+---
+
+## Arquitectura del Sistema
+
+La arquitectura está compuesta por los siguientes componentes principales.
+
+### 1. San Gabriel Hospital UI
+
+Es la interfaz de usuario del sistema desde donde los usuarios interactúan con la plataforma.
+
+**Responsabilidades**
+
+* Enviar la solicitud de autenticación al backend.
+* Recibir eventos en tiempo real mediante WebSocket.
+* Mostrar notificaciones al usuario.
+
+El login se realiza mediante una petición:
+
+```http
+POST /login
+```
+
+Body:
+
+```json
+{
+  "email": "user@email.com",
+  "password": "********"
+}
+```
+
+---
+
+### 2. Authentication Component (Web API)
+
+Es el microservicio encargado de gestionar la **autenticación de usuarios**.
+
+**Responsabilidades**
+
+* Validar credenciales de usuario.
+* Consultar la base de datos de usuarios.
+* Generar eventos de autenticación.
+
+**Base de datos utilizada**
+
+```text
+PostgreSQL
+Database: Users
+```
+
+Si la autenticación es exitosa, se genera un evento con la siguiente estructura:
+
+```json
+{
+  "email": "user@email.com",
+  "statusLogin": "SUCCESS"
+}
+```
+
+Este evento se publica en el sistema de mensajería.
+
+---
+
+### 3. Event Messaging (Topic Notifications)
+
+El sistema utiliza un **modelo de publicación y suscripción (Pub/Sub)** para comunicar microservicios.
+
+El **Authentication Component** publica eventos en el tópico:
+
+```text
+Topic: Notifications
+```
+
+Estos eventos son consumidos por otros servicios interesados, como el **Notifications Component**.
+
+**Beneficios de este enfoque**
+
+* Desacoplamiento entre servicios
+* Escalabilidad
+* Procesamiento asíncrono
+* Mayor resiliencia del sistema
+
+---
+
+### 4. Notifications Component (Web API)
+
+Es el microservicio encargado de procesar los eventos de notificación generados por el sistema.
+
+**Responsabilidades**
+
+* Consumir eventos desde el tópico de notificaciones.
+* Enviar notificaciones en tiempo real a la interfaz de usuario.
+* Enviar correos electrónicos a los usuarios.
+* Registrar las notificaciones en la base de datos.
+
+**Base de datos utilizada**
+
+```text
+PostgreSQL
+Database: Notifications
+```
+
+---
+
+### 5. WebSocket Notification Service
+
+Este componente permite enviar **notificaciones en tiempo real al cliente**.
+
+**Protocolo utilizado**
+
+```text
+WebSocket
+```
+
+Endpoint:
+
+```text
+socket://port:8796
+```
+
+Cuando el **Notifications Component** recibe un evento de autenticación, envía un mensaje al cliente conectado mediante WebSocket.
+
+Esto permite que la interfaz de usuario reciba información de forma inmediata.
+
+---
+
+### 6. Amazon Simple Email Service (SES)
+
+Para el envío de correos electrónicos, el sistema utiliza **AWS Simple Email Service (SES)** mediante su SDK.
+
+**Responsabilidades**
+
+* Enviar notificaciones por correo electrónico.
+* Confirmar el resultado del proceso de autenticación.
+
+Ejemplo de correo enviado:
+
+```text
+Subject: Login Notification
+
+Hello,
+
+Your login to the San Gabriel Hospital system was successful.
+
+If this was not you, please contact support immediately.
+```
+
+---
+
+## Flujo del Sistema
+
+El flujo de la arquitectura es el siguiente:
+
+1. El usuario realiza un **login desde la UI**.
+2. La UI envía una petición **HTTP POST** al **Authentication Component**.
+3. El servicio valida las credenciales en la base de datos **Users**.
+4. Si la autenticación es exitosa, se genera un **evento de autenticación**.
+5. El evento se publica en el **Topic Notifications**.
+6. El **Notifications Component** consume el evento.
+7. El servicio:
+
+   * envía una notificación por **WebSocket** a la UI
+   * envía un **correo electrónico mediante AWS SES**
+   * registra la notificación en la base de datos **Notifications**
+
+---
+
+## Tecnologías Utilizadas
+
+* Microservices Architecture
+* Event Driven Architecture
+* REST APIs
+* WebSockets
+* PostgreSQL
+* AWS Simple Email Service (SES)
+* Message Broker / Event Topic
+* Cloud Architecture
+
+---
+
+## Beneficios de la Arquitectura
+
+Esta arquitectura ofrece múltiples ventajas:
+
+* Desacoplamiento entre componentes
+* Escalabilidad horizontal
+* Comunicación asíncrona basada en eventos
+* Notificaciones en tiempo real
+* Integración con servicios cloud
+* Mayor resiliencia del sistema
+
+---
+
+## Posibles Mejoras Futuras
+
+* Implementación de **JWT para autenticación segura**
+* Uso de **Kafka o AWS SNS/SQS** como sistema de mensajería
+* Incorporación de **observabilidad (logs, tracing y métricas)**
+* Implementación de **retry policies para envío de emails**
+* Uso de **API Gateway**
