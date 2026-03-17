@@ -98,6 +98,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		<!-- Dependency for sending messages to ServiceBus -->
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-messaging-servicebus</artifactId>
+			<version>7.17.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>

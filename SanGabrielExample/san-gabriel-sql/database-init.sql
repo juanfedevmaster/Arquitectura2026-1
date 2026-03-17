@@ -21,7 +21,7 @@ INSERT INTO auth.usuarios (
 ) VALUES (
     'admin.sangabriel',
     'admin@sangabriel.com',
-    '$2a$10$EjemploHashBCryptGeneradoDesdeSpringBoot',
+    '$2y$10$6FSktcvohDNNBHEYLUV.iucNuce8ad4XzQWRvqGO7uDA/7kK1AKv2',
     'Administrador',
     'General',
     '123456789',

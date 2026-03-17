@@ -12,6 +12,7 @@ import com.juanfedevmaster.sangabriel.authentication.domain.model.RefreshToken;
 import com.juanfedevmaster.sangabriel.authentication.domain.model.Usuario;
 import com.juanfedevmaster.sangabriel.authentication.domain.port.in.AutenticacionUseCase;
 import com.juanfedevmaster.sangabriel.authentication.domain.port.out.AuditoriaRepositoryPort;
+import com.juanfedevmaster.sangabriel.authentication.domain.port.out.EventoAutenticacionPublisherPort;
 import com.juanfedevmaster.sangabriel.authentication.domain.port.out.RefreshTokenRepositoryPort;
 import com.juanfedevmaster.sangabriel.authentication.domain.port.out.UsuarioRepositoryPort;
 import com.juanfedevmaster.sangabriel.authentication.infrastructure.config.JwtProperties;
@@ -37,6 +38,8 @@ public class AutenticacionService implements AutenticacionUseCase {
     private final JwtUtil jwtUtil;
     private final JwtProperties jwtProperties;
     private final SecurityProperties securityProperties;
+    private final EventoAutenticacionPublisherPort eventoPublisherPort;
+
 
     @Override
     @Transactional
@@ -190,6 +193,7 @@ public class AutenticacionService implements AutenticacionUseCase {
                 .exitoso(exitoso)
                 .build();
         auditoriaRepositoryPort.registrar(auditoria);
+        eventoPublisherPort.publicar(auditoria);
     }
 
     private LoginResponseDTO construirLoginResponse(String accessToken, String refreshTokenStr, Usuario usuario) {
