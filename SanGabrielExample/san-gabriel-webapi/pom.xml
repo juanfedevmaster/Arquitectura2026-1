@@ -80,6 +80,12 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- Dependency for consuming messages from Azure Service Bus -->
+		<dependency>
+			<groupId>com.azure</groupId>
+			<artifactId>azure-messaging-servicebus</artifactId>
+			<version>7.17.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
