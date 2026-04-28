@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatRoom</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ══════════════════════════ JOIN SCREEN ══════════════════════════ -->
+  <div id="join-screen" class="d-flex align-items-center justify-content-center min-vh-100">
+    <div class="join-card card shadow-lg border-0">
+      <div class="card-body p-5">
+
+        <div class="text-center mb-4">
+          <div class="join-icon mb-3">
+            <i class="bi bi-chat-dots-fill"></i>
+          </div>
+          <h2 class="fw-bold mb-1">ChatRoom</h2>
+          <p class="text-muted mb-0">Únete a una sala de chat en tiempo real</p>
+        </div>
+
+        <div class="mb-3">
+          <label for="username" class="form-label fw-semibold">
+            <i class="bi bi-person-fill me-1 text-primary"></i>Tu nombre
+          </label>
+          <input
+            type="text"
+            id="username"
+            class="form-control form-control-lg"
+            placeholder="Ej: Juan Pérez"
+            maxlength="30"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="mb-4">
+          <label for="roomId" class="form-label fw-semibold">
+            <i class="bi bi-hash me-1 text-primary"></i>ID de sala
+          </label>
+          <input
+            type="text"
+            id="roomId"
+            class="form-control form-control-lg"
+            placeholder="Ej: general"
+            maxlength="30"
+            autocomplete="off"
+          />
+        </div>
+
+        <button id="join-btn" class="btn btn-primary btn-lg w-100 fw-semibold">
+          <i class="bi bi-box-arrow-in-right me-2"></i>Unirse a la sala
+        </button>
+
+        <div id="join-error" class="alert alert-danger mt-3 mb-0 d-none" role="alert"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════ CHAT SCREEN ══════════════════════════ -->
+  <div id="chat-screen" class="d-none flex-column vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-primary px-3 py-2 flex-shrink-0">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-chat-dots-fill fs-5"></i>
+        <span class="navbar-brand mb-0 fw-bold me-0">ChatRoom</span>
+        <span class="badge bg-white text-primary fs-6 fw-semibold" id="header-room">#sala</span>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-white-50 small d-none d-sm-inline">
+          <i class="bi bi-person-fill me-1"></i><span id="header-user"></span>
+        </span>
+        <span id="connection-badge" class="badge bg-success d-flex align-items-center gap-1">
+          <i class="bi bi-circle-fill" style="font-size:.45rem;"></i>
+          <span>Conectado</span>
+        </span>
+        <button id="leave-btn" class="btn btn-outline-light btn-sm">
+          <i class="bi bi-box-arrow-right me-1"></i>Salir
+        </button>
+      </div>
+    </nav>
+
+    <!-- Body: messages + sidebar -->
+    <div class="d-flex flex-grow-1 overflow-hidden">
+
+      <!-- Messages column -->
+      <div class="d-flex flex-column flex-grow-1 overflow-hidden">
+
+        <!-- Scrollable messages area -->
+        <div id="messages-container" class="flex-grow-1 p-3">
+          <div id="messages-list"></div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div id="typing-indicator" class="typing-indicator d-none px-4 pb-1">
+          <span id="typing-text"></span>
+          <span class="typing-dots"><span></span><span></span><span></span></span>
+        </div>
+
+        <!-- Input area -->
+        <div class="input-area border-top p-3 bg-white flex-shrink-0">
+          <div class="input-group">
+            <input
+              type="text"
+              id="message-input"
+              class="form-control form-control-lg"
+              placeholder="Escribe un mensaje…"
+              maxlength="500"
+              autocomplete="off"
+              disabled
+            />
+            <button id="send-btn" class="btn btn-primary px-4" disabled>
+              <i class="bi bi-send-fill"></i>
+            </button>
+          </div>
+          <div class="d-flex justify-content-between mt-1 px-1">
+            <small class="text-muted">Presiona <kbd>Enter</kbd> para enviar</small>
+            <small id="char-count" class="text-muted">0 / 500</small>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Users sidebar (hidden on mobile) -->
+      <aside class="users-sidebar border-start bg-light d-none d-md-flex flex-column flex-shrink-0">
+        <div class="p-3 border-bottom">
+          <h6 class="fw-bold mb-0 text-muted small text-uppercase letter-spacing-1">
+            <i class="bi bi-people-fill me-1"></i>En la sala
+            <span id="user-count" class="badge bg-primary ms-1 fw-normal">0</span>
+          </h6>
+        </div>
+        <div id="users-list" class="flex-grow-1 overflow-auto p-2"></div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+  <script src="js/chat.js"></script>
+</body>
+</html>

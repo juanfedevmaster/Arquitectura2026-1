@@ -1,0 +1,15 @@
+{
+  "name": "fronted-chat-room",
+  "version": "1.0.0",
+  "description": "Chat Room frontend using SockJS and STOMP over WebSockets",
+  "scripts": {
+    "start": "npx serve . -l 3000"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
+    "sockjs-client": "^1.6.1"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
