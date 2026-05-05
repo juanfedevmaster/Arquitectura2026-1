@@ -1,0 +1,27 @@
+#!/bin/sh
+# Maven Wrapper script (POSIX shell)
+set -e
+
+MAVEN_USER_HOME="${MAVEN_USER_HOME:-${HOME}/.m2}"
+WRAPPER_DISTS="${MAVEN_USER_HOME}/wrapper/dists"
+DISTRIBUTION_URL="https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.6/apache-maven-3.9.6-bin.zip"
+DIST_FOLDER="apache-maven-3.9.6-bin"
+MAVEN_HOME="${WRAPPER_DISTS}/${DIST_FOLDER}/apache-maven-3.9.6"
+MVN="${MAVEN_HOME}/bin/mvn"
+
+download_maven() {
+    echo "Descargando Maven desde: $DISTRIBUTION_URL"
+    mkdir -p "${WRAPPER_DISTS}/${DIST_FOLDER}"
+    TMPFILE=$(mktemp)
+    curl -sL "$DISTRIBUTION_URL" -o "$TMPFILE"
+    unzip -q "$TMPFILE" -d "${WRAPPER_DISTS}/${DIST_FOLDER}"
+    rm -f "$TMPFILE"
+    chmod +x "$MVN"
+    echo "Maven instalado en: $MAVEN_HOME"
+}
+
+if [ ! -f "$MVN" ]; then
+    download_maven
+fi
+
+exec "$MVN" "$@"

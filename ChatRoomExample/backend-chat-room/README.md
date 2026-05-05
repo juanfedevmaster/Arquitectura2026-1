@@ -16,6 +16,35 @@ flowchart LR
 
 ---
 
+## Diagrama de Clases
+
+```mermaid
+classDiagram
+    direction TB
+
+    class ChatMessage
+    class MessageType
+    class ChatService
+    class ParticipantService
+    class ChatController
+    class RoomController
+    class WebSocketConfig
+    class CorsConfig
+    class WebSocketEventListener
+
+    ChatMessage *-- MessageType
+    ChatController --> ChatService
+    ChatController --> ParticipantService
+    ChatController ..> ChatMessage
+    RoomController --> ParticipantService
+    WebSocketEventListener --> ChatService
+    WebSocketEventListener --> ParticipantService
+    WebSocketEventListener ..> ChatMessage
+    ChatService ..> ChatMessage
+```
+
+---
+
 ## Tecnologías
 
 | Componente | Tecnología |
@@ -56,7 +85,7 @@ const client = new Client({
     // 1. Suscribirse a los mensajes de la sala
     client.subscribe(`/topic/chat/${roomId}`, (frame) => {
       const message = JSON.parse(frame.body);
-      console.log('Mensaje recibido:', message);
+      console.log('Mensaje recibido:', message);◊
     });
 
     // 2. Notificar que el usuario entró a la sala

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="backend-chat-room--documentación-api-websocket">Backend Chat Room — Documentación API WebSocket</h1>
+<h2 id="arquitectura">Arquitectura</h2>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart LR
+    Cliente["👤 Clientes\n(Browser / Mobile)"]
+    Server["⚙️ Servidor\nSpring Boot"]
+    Memoria["🗂️ Estado\nen Memoria"]
+
+    Cliente -- "WebSocket\nSTOMP + SockJS" --> Server
+    Server -- "broadcast\nmensajes / typing" --> Cliente
+    Server -- "lee / escribe\nparticipantes" --> Memoria
+    Cliente -- "GET /api/rooms/{roomId}/participants" --> Server
+</div></code></pre>
+<hr>
+<h2 id="diagrama-de-clases">Diagrama de Clases</h2>
+<pre><code class="language-mermaid"><div class="mermaid">classDiagram
+    direction TB
+
+    class ChatMessage
+    class MessageType
+    class ChatService
+    class ParticipantService
+    class ChatController
+    class RoomController
+    class WebSocketConfig
+    class CorsConfig
+    class WebSocketEventListener
+
+    ChatMessage *-- MessageType
+    ChatController --> ChatService
+    ChatController --> ParticipantService
+    ChatController ..> ChatMessage
+    RoomController --> ParticipantService
+    WebSocketEventListener --> ChatService
+    WebSocketEventListener --> ParticipantService
+    WebSocketEventListener ..> ChatMessage
+    ChatService ..> ChatMessage
+</div></code></pre>
+<hr>
+<h2 id="tecnologías">Tecnologías</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Tecnología</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Framework</td>
+<td>Spring Boot 3.5.14</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Protocolo</td>
+<td>WebSocket + STOMP</td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td>SockJS</td>
+</tr>
+<tr>
+<td>Docs REST</td>
+<td>SpringDoc OpenAPI (Swagger)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="conexión-desde-la-ui">Conexión desde la UI</h2>
+<h3 id="endpoint-de-conexión-websocket">Endpoint de conexión WebSocket</h3>
+<pre class="hljs"><code><div>ws://localhost:8080/ws
+</div></code></pre>
+<blockquote>
+<p>Con SockJS (recomendado para compatibilidad de navegadores):</p>
+<pre class="hljs"><code><div>http://localhost:8080/ws
+</div></code></pre>
+</blockquote>
+<h3 id="ejemplo-de-conexión-con-sockjs--stomp-javascript">Ejemplo de conexión con SockJS + STOMP (JavaScript)</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> <span class="hljs-title class_">SockJS</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;sockjs-client&#x27;</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Client</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@stomp/stompjs&#x27;</span>;
+
+<span class="hljs-keyword">const</span> roomId = <span class="hljs-string">&#x27;sala-general&#x27;</span>; <span class="hljs-comment">// ID de la sala a la que se une</span>
+<span class="hljs-keyword">const</span> username = <span class="hljs-string">&#x27;Juan&#x27;</span>;
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Client</span>({
+  <span class="hljs-attr">webSocketFactory</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SockJS</span>(<span class="hljs-string">&#x27;http://localhost:8080/ws&#x27;</span>),
+  <span class="hljs-attr">onConnect</span>: <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">// 1. Suscribirse a los mensajes de la sala</span>
+    client.<span class="hljs-title function_">subscribe</span>(<span class="hljs-string">`/topic/chat/<span class="hljs-subst">${roomId}</span>`</span>, <span class="hljs-function">(<span class="hljs-params">frame</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> message = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(frame.<span class="hljs-property">body</span>);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Mensaje recibido:&#x27;</span>, message);◊
+    });
+
+    <span class="hljs-comment">// 2. Notificar que el usuario entró a la sala</span>
+    client.<span class="hljs-title function_">publish</span>({
+      <span class="hljs-attr">destination</span>: <span class="hljs-string">`/app/chat/<span class="hljs-subst">${roomId}</span>/join`</span>,
+      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">sender</span>: username, roomId }),
+    });
+  },
+  <span class="hljs-attr">onDisconnect</span>: <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Desconectado del servidor&#x27;</span>);
+  },
+});
+
+client.<span class="hljs-title function_">activate</span>();
+</div></code></pre>
+<hr>
+<h2 id="modelo-de-mensaje-chatmessage">Modelo de Mensaje (<code>ChatMessage</code>)</h2>
+<p>Todos los mensajes enviados y recibidos usan la siguiente estructura JSON:</p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;CHAT&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Hola a todos!&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sender&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;roomId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sala-general&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2026-04-27T10:30:00&quot;</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<h3 id="campos">Campos</h3>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td><code>CHAT</code> | <code>JOIN</code> | <code>LEAVE</code> | <code>TYPING</code> | <code>STOP_TYPING</code></td>
+<td>Tipo de evento del mensaje</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td><code>String</code></td>
+<td>Texto del mensaje</td>
+</tr>
+<tr>
+<td><code>sender</code></td>
+<td><code>String</code></td>
+<td>Nombre del usuario que envía</td>
+</tr>
+<tr>
+<td><code>roomId</code></td>
+<td><code>String</code></td>
+<td>Identificador de la sala</td>
+</tr>
+<tr>
+<td><code>timestamp</code></td>
+<td><code>LocalDateTime</code></td>
+<td>Fecha y hora del mensaje (asignado por el servidor)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="acciones-disponibles-destinos-stomp">Acciones disponibles (destinos STOMP)</h2>
+<h3 id="1-enviar-un-mensaje-de-chat">1. Enviar un mensaje de chat</h3>
+<ul>
+<li><strong>Destino (cliente → servidor):</strong> <code>/app/chat/{roomId}/send</code></li>
+<li><strong>Broadcast (servidor → clientes):</strong> <code>/topic/chat/{roomId}</code></li>
+</ul>
+<pre class="hljs"><code><div>client.<span class="hljs-title function_">publish</span>({
+  <span class="hljs-attr">destination</span>: <span class="hljs-string">`/app/chat/<span class="hljs-subst">${roomId}</span>/send`</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;CHAT&#x27;</span>,
+    <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;Hola a todos!&#x27;</span>,
+    <span class="hljs-attr">sender</span>: username,
+  }),
+});
+</div></code></pre>
+<hr>
+<h3 id="2-unirse-a-una-sala">2. Unirse a una sala</h3>
+<ul>
+<li><strong>Destino (cliente → servidor):</strong> <code>/app/chat/{roomId}/join</code></li>
+<li><strong>Broadcast (servidor → clientes):</strong> <code>/topic/chat/{roomId}</code></li>
+</ul>
+<p>El servidor guardará el <code>username</code> y el <code>roomId</code> en la sesión WebSocket para manejar desconexiones automáticamente.</p>
+<pre class="hljs"><code><div>client.<span class="hljs-title function_">publish</span>({
+  <span class="hljs-attr">destination</span>: <span class="hljs-string">`/app/chat/<span class="hljs-subst">${roomId}</span>/join`</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({
+    <span class="hljs-attr">sender</span>: username,
+    roomId,
+  }),
+});
+</div></code></pre>
+<p><strong>Mensaje broadcast generado:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;JOIN&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan joined the room&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sender&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;roomId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sala-general&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2026-04-27T10:30:00&quot;</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<hr>
+<h3 id="3-salir-de-una-sala-explícito">3. Salir de una sala (explícito)</h3>
+<ul>
+<li><strong>Destino (cliente → servidor):</strong> <code>/app/chat/{roomId}/leave</code></li>
+<li><strong>Broadcast (servidor → clientes):</strong> <code>/topic/chat/{roomId}</code></li>
+</ul>
+<pre class="hljs"><code><div>client.<span class="hljs-title function_">publish</span>({
+  <span class="hljs-attr">destination</span>: <span class="hljs-string">`/app/chat/<span class="hljs-subst">${roomId}</span>/leave`</span>,
+  <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({
+    <span class="hljs-attr">sender</span>: username,
+    roomId,
+  }),
+});
+</div></code></pre>
+<p><strong>Mensaje broadcast generado:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;LEAVE&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan left the room&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sender&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;roomId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sala-general&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2026-04-27T10:30:00&quot;</span>
+<span class="hljs-punctuation">}</span>
+</div></code></pre>
+<hr>
+<h3 id="4-indicador-de-escritura-typing-indicator">4. Indicador de escritura (<em>typing indicator</em>)</h3>
+<ul>
+<li><strong>Destino (cliente → servidor):</strong> <code>/app/chat/{roomId}/typing</code></li>
+<li><strong>Broadcast (servidor → clientes):</strong> <code>/topic/chat/{roomId}/typing</code></li>
+</ul>
+<p>El canal de typing es <strong>independiente</strong> del canal de mensajes para que la UI pueda manejarlo por separado.</p>
+<p><strong>Suscripción en la UI:</strong></p>
+<pre class="hljs"><code><div>client.<span class="hljs-title function_">subscribe</span>(<span class="hljs-string">`/topic/chat/<span class="hljs-subst">${roomId}</span>/typing`</span>, <span class="hljs-function">(<span class="hljs-params">frame</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> msg = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(frame.<span class="hljs-property">body</span>);
+  <span class="hljs-keyword">if</span> (msg.<span class="hljs-property">type</span> === <span class="hljs-string">&#x27;TYPING&#x27;</span>) {
+    <span class="hljs-title function_">showTypingIndicator</span>(msg.<span class="hljs-property">sender</span>); <span class="hljs-comment">// ej: &quot;Juan está escribiendo...&quot;</span>
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-title function_">hideTypingIndicator</span>(msg.<span class="hljs-property">sender</span>);
+  }
+});
+</div></code></pre>
+<p><strong>Enviar eventos (con debounce recomendado):</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> typingTimeout;
+
+inputEl.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;input&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  client.<span class="hljs-title function_">publish</span>({
+    <span class="hljs-attr">destination</span>: <span class="hljs-string">`/app/chat/<span class="hljs-subst">${roomId}</span>/typing`</span>,
+    <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;TYPING&#x27;</span>, <span class="hljs-attr">sender</span>: username }),
+  });
+
+  <span class="hljs-built_in">clearTimeout</span>(typingTimeout);
+  typingTimeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
+    client.<span class="hljs-title function_">publish</span>({
+      <span class="hljs-attr">destination</span>: <span class="hljs-string">`/app/chat/<span class="hljs-subst">${roomId}</span>/typing`</span>,
+      <span class="hljs-attr">body</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;STOP_TYPING&#x27;</span>, <span class="hljs-attr">sender</span>: username }),
+    });
+  }, <span class="hljs-number">2000</span>);
+});
+</div></code></pre>
+<p><strong>Mensajes broadcast generados:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TYPING&quot;</span><span class="hljs-punctuation">,</span>      <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan is typing...&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sender&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;roomId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sala-general&quot;</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;STOP_TYPING&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><span class="hljs-punctuation">,</span>                  <span class="hljs-attr">&quot;sender&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Juan&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;roomId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;sala-general&quot;</span> <span class="hljs-punctuation">}</span>
+</div></code></pre>
+<hr>
+<h3 id="5-desconexión-abrupta-cierre-de-pestaña--pérdida-de-red">5. Desconexión abrupta (cierre de pestaña / pérdida de red)</h3>
+<p>No requiere acción del cliente. El servidor detecta la desconexión via <code>SessionDisconnectEvent</code> y emite automáticamente un mensaje <code>LEAVE</code> a la sala correspondiente.</p>
+<hr>
+<h2 id="endpoint-rest">Endpoint REST</h2>
+<h3 id="listar-participantes-activos-de-una-sala">Listar participantes activos de una sala</h3>
+<pre class="hljs"><code><div>GET http://localhost:8080/api/rooms/{roomId}/participants
+</div></code></pre>
+<p><strong>Respuesta:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Juan&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Maria&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Carlos&quot;</span><span class="hljs-punctuation">]</span>
+</div></code></pre>
+<blockquote>
+<p>Los participantes se registran al hacer <code>/join</code> y se eliminan al hacer <code>/leave</code> o al desconectarse abruptamente.</p>
+</blockquote>
+<hr>
+<h2 id="flujo-completo-de-una-sesión">Flujo completo de una sesión</h2>
+<pre class="hljs"><code><div>UI                                         Servidor
+ |                                              |
+ |-- SockJS connect /ws -----------------------&gt;|
+ |&lt;-- Conexión establecida --------------------|
+ |                                              |
+ |-- /app/chat/{roomId}/join ----------------&gt;  |
+ |&lt;-- /topic/chat/{roomId} [JOIN] -------------|  (broadcast a todos)
+ |                                              |
+ |-- /app/chat/{roomId}/typing [TYPING] ------&gt; |
+ |&lt;-- /topic/chat/{roomId}/typing [TYPING] ----|  (broadcast a todos)
+ |                                              |
+ |-- /app/chat/{roomId}/typing [STOP_TYPING] -&gt; |
+ |&lt;-- /topic/chat/{roomId}/typing [STOP_TYPING]|  (broadcast a todos)
+ |                                              |
+ |-- /app/chat/{roomId}/send ----------------&gt; |
+ |&lt;-- /topic/chat/{roomId} [CHAT] -------------|  (broadcast a todos)
+ |                                              |
+ |-- /app/chat/{roomId}/leave ---------------&gt; |
+ |&lt;-- /topic/chat/{roomId} [LEAVE] ------------|  (broadcast a todos)
+ |                                              |
+ |-- [cierre de conexión] --------------------&gt; |
+ |&lt;-- /topic/chat/{roomId} [LEAVE] ------------|  (auto, WebSocketEventListener)
+</div></code></pre>
+<hr>
+<h2 id="cómo-funciona-stomp">¿Cómo funciona STOMP?</h2>
+<p><strong>STOMP</strong> (Simple Text Oriented Messaging Protocol) es un protocolo de mensajería que corre sobre WebSocket. Mientras WebSocket solo abre un canal de comunicación bidireccional, STOMP define un formato y unas reglas para el envío de mensajes, similar a cómo HTTP define cómo hacer peticiones web.</p>
+<h3 id="websocket-vs-stomp">WebSocket vs STOMP</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>WebSocket</th>
+<th>STOMP sobre WebSocket</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qué es</td>
+<td>Canal de comunicación</td>
+<td>Protocolo de mensajería</td>
+</tr>
+<tr>
+<td>Formato</td>
+<td>Bytes / texto libre</td>
+<td>Frames con cabeceras y cuerpo</td>
+</tr>
+<tr>
+<td>Suscripciones</td>
+<td>No nativas</td>
+<td>Sí, con <code>SUBSCRIBE</code> a destinos</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>Manual</td>
+<td>Gestionado por el broker</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ciclo-de-vida-de-un-mensaje-stomp">Ciclo de vida de un mensaje STOMP</h3>
+<pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
+    participant UI as Cliente (UI)
+    participant WS as WebSocket /ws
+    participant Broker as STOMP Broker
+    participant CC as ChatController
+
+    UI->>WS: CONNECT
+    WS-->>UI: CONNECTED
+
+    UI->>WS: SUBSCRIBE /topic/chat/general
+    UI->>WS: SEND /app/chat/general/send {"content":"Hola"}
+
+    WS->>CC: @MessageMapping /chat/general/send
+    CC->>Broker: convertAndSend /topic/chat/general
+    Broker-->>UI: MESSAGE /topic/chat/general {"content":"Hola"}
+
+    UI->>WS: DISCONNECT
+</div></code></pre>
+<h3 id="tipos-de-frame-stomp">Tipos de frame STOMP</h3>
+<table>
+<thead>
+<tr>
+<th>Frame</th>
+<th>Dirección</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CONNECT</code></td>
+<td>Cliente → Servidor</td>
+<td>Inicia la sesión STOMP</td>
+</tr>
+<tr>
+<td><code>CONNECTED</code></td>
+<td>Servidor → Cliente</td>
+<td>Confirma la sesión</td>
+</tr>
+<tr>
+<td><code>SUBSCRIBE</code></td>
+<td>Cliente → Servidor</td>
+<td>Se suscribe a un destino (<code>/topic/...</code>)</td>
+</tr>
+<tr>
+<td><code>SEND</code></td>
+<td>Cliente → Servidor</td>
+<td>Envía un mensaje a un destino (<code>/app/...</code>)</td>
+</tr>
+<tr>
+<td><code>MESSAGE</code></td>
+<td>Servidor → Cliente</td>
+<td>Entrega un mensaje al suscriptor</td>
+</tr>
+<tr>
+<td><code>DISCONNECT</code></td>
+<td>Cliente → Servidor</td>
+<td>Cierra la sesión</td>
+</tr>
+</tbody>
+</table>
+<h3 id="por-qué-sockjs">Por qué SockJS</h3>
+<p>Los WebSockets puros pueden ser bloqueados por proxies o firewalls corporativos. <strong>SockJS</strong> actúa como wrapper: intenta usar WebSocket nativo primero y si falla, cae automáticamente a alternativas como HTTP long-polling. Por eso la conexión se hace a <code>http://localhost:8080/ws</code> en lugar de <code>ws://</code>.</p>
+<hr>
+<h2 id="prefijos-stomp-configurados">Prefijos STOMP configurados</h2>
+<table>
+<thead>
+<tr>
+<th>Prefijo</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/app</code></td>
+<td>Mensajes enrutados al servidor (<code>@MessageMapping</code>)</td>
+</tr>
+<tr>
+<td><code>/topic</code></td>
+<td>Canal de broadcast (broker en memoria)</td>
+</tr>
+<tr>
+<td><code>/queue</code></td>
+<td>Canal privado/unicast (broker en memoria)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="dependencias-necesarias-en-la-ui">Dependencias necesarias en la UI</h2>
+<h3 id="npm-react--vue--angular">npm (React / Vue / Angular)</h3>
+<pre class="hljs"><code><div>npm install sockjs-client @stomp/stompjs
+</div></code></pre>
+<h3 id="cdn">CDN</h3>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/@stomp/stompjs/bundles/stomp.umd.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+<hr>
+<h2 id="swagger--openapi">Swagger / OpenAPI</h2>
+<p>Documentación REST disponible en:</p>
+<pre class="hljs"><code><div>http://localhost:8080/swagger-ui/index.html
+</div></code></pre>
+
+</body>
+</html>

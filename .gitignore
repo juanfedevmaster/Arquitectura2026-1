@@ -22,3 +22,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+MiddlewareExample/.DS_Store
+ChatRoomExample/.DS_Store
+ChatRoomExample/.DS_Store
+MiddlewareExample/src/.DS_Store
+MiddlewareExample/src/main/.DS_Store
+MiddlewareExample/src/main/java/.DS_Store
+MiddlewareExample/src/main/java/com/.DS_Store
+MiddlewareExample/src/main/java/com/example/.DS_Store
+/MiddlewareExample/target
+ChatRoomExample/.DS_Store

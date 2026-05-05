@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: middleware-notifications
+
+# ── JWT ───────────────────────────────────────────────────────────────────────
+middleware:
+  jwt:
+    secret: "middleware-super-secret-key-must-be-at-least-32-characters-long"
+
+# ── Actuator + Micrometer (Prometheus) ────────────────────────────────────────
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, metrics
+  endpoint:
+    health:
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+# ── SpringDoc / Swagger UI ───────────────────────────────────────────────────
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+logging:
+  level:
+    com.example.middleware: DEBUG
+    org.springframework.security: WARN
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} — %msg%n"
