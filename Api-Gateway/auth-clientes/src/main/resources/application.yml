@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/auth_db
-    username: postgres
-    password: admin
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/auth_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -19,8 +19,8 @@ spring:
 # JWT — change the secret before deploying to production
 jwt:
   # Base64-encoded key, minimum 32 bytes for HS256
-  secret: YmFzZS02NC1lbmNvZGVkLXNlY3JldC1rZXktZm9yLWp3dC10b2tlbi1hdXRoZW50aWNhdGlvbg==
-  expiration: 86400000  # 24 hours in milliseconds
+  secret: ${JWT_SECRET:YmFzZS02NC1lbmNvZGVkLXNlY3JldC1rZXktZm9yLWp3dC10b2tlbi1hdXRoZW50aWNhdGlvbg==}
+  expiration: ${JWT_EXPIRATION:86400000}  # 24 hours in milliseconds
 
 springdoc:
   api-docs:

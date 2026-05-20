@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-clientes
+  labels:
+    app: auth-clientes
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-clientes
+  template:
+    metadata:
+      labels:
+        app: auth-clientes
+    spec:
+      containers:
+        - name: auth-clientes
+          image: localhost:5001/auth-clientes:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/auth_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: db-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: db-password
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth-secrets
+                  key: jwt-secret
+            - name: JWT_EXPIRATION
+              value: "86400000"
+          readinessProbe:
+            httpGet:
+              path: /v3/api-docs
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 5
+          livenessProbe:
+            httpGet:
+              path: /v3/api-docs
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 15
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-clientes
+spec:
+  type: LoadBalancer
+  selector:
+    app: auth-clientes
+  ports:
+    - port: 8080
+      targetPort: 8080

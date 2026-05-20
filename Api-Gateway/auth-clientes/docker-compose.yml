@@ -16,5 +16,23 @@ services:
       timeout: 5s
       retries: 5
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/auth_db"
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+      JWT_SECRET: YmFzZS02NC1lbmNvZGVkLXNlY3JldC1rZXktZm9yLWp3dC10b2tlbi1hdXRoZW50aWNhdGlvbg==
+      JWT_EXPIRATION: 86400000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+
 volumes:
   postgres_data:
